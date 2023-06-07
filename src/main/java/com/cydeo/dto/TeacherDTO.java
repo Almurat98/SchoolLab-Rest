@@ -2,6 +2,8 @@ package com.cydeo.dto;
 
 import com.cydeo.enums.EducationLevel;
 import com.cydeo.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +32,7 @@ public class TeacherDTO {
     private Status status;
 
     private EducationLevel educationLevel;
-
+    @JsonManagedReference
     private AddressDTO address;
 
 }
