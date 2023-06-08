@@ -28,4 +28,5 @@ public class ResponseWrapper {
         this.message = message;
         this.statusCode = HttpStatus.OK.value();
     }
+
 }
