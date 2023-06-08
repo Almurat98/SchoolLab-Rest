@@ -1,7 +1,8 @@
 package com.cydeo.controller;
 
+import com.cydeo.dto.StudentDTO;
 import com.cydeo.dto.TeacherDTO;
-import com.cydeo.entity.Teacher;
+import com.cydeo.service.StudentService;
 import com.cydeo.service.TeacherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +13,25 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/teachers")
+@RequestMapping("/school")
 public class SchoolController {
     private final TeacherService teacherService;
-
-    public SchoolController(TeacherService teacherService) {
+    private final StudentService studentService;
+    public SchoolController(TeacherService teacherService, StudentService studentService) {
         this.teacherService = teacherService;
+        this.studentService = studentService;
     }
-    @GetMapping
+    @GetMapping("/teachers")
     public ResponseEntity<List<TeacherDTO>> getAllTeachers(){
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(teacherService.findAll());
+    }
+
+    @GetMapping("/students")
+    public ResponseEntity<List<StudentDTO>> getAllStudent(){
+        return  ResponseEntity.status(HttpStatus.ACCEPTED)
+                .header("success","true")
+                .header("message","Students are successfully retrieved")
+                .body(studentService.findAll());
     }
 }
