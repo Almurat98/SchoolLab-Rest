@@ -1,5 +1,6 @@
 package com.cydeo.controller;
 
+import com.cydeo.dto.ResponseWrapper;
 import com.cydeo.dto.StudentDTO;
 import com.cydeo.dto.TeacherDTO;
 import com.cydeo.service.StudentService;
@@ -28,10 +29,7 @@ public class SchoolController {
     }
 
     @GetMapping("/students")
-    public ResponseEntity<List<StudentDTO>> getAllStudent(){
-        return  ResponseEntity.status(HttpStatus.ACCEPTED)
-                .header("success","true")
-                .header("message","Students are successfully retrieved")
-                .body(studentService.findAll());
+    public ResponseEntity<ResponseWrapper> getAllStudent(){
+        return  ResponseEntity.ok(new ResponseWrapper("Students are successfully retrieved",studentService.findAll()));
     }
 }
