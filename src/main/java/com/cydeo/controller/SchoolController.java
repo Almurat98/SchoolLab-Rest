@@ -1,13 +1,16 @@
 package com.cydeo.controller;
 
+import com.cydeo.dto.AddressDTO;
 import com.cydeo.dto.ResponseWrapper;
 import com.cydeo.dto.TeacherDTO;
+import com.cydeo.service.AddressService;
 import com.cydeo.service.ParentService;
 import com.cydeo.service.StudentService;
 import com.cydeo.service.TeacherService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,10 +22,12 @@ public class SchoolController {
     private final TeacherService teacherService;
     private final StudentService studentService;
     private final ParentService parentService;
-    public SchoolController(TeacherService teacherService, StudentService studentService, ParentService parentService) {
+    private final AddressService addressService;
+    public SchoolController(TeacherService teacherService, StudentService studentService, ParentService parentService, AddressService addressService) {
         this.teacherService = teacherService;
         this.studentService = studentService;
         this.parentService = parentService;
+        this.addressService = addressService;
     }
     @GetMapping("/teachers")
     public ResponseEntity<List<TeacherDTO>> getAllTeachers(){
@@ -41,5 +46,13 @@ public class SchoolController {
                 .status(HttpStatus.ACCEPTED)
                 .header("Parent","Returned")
                 .body(new ResponseWrapper(true,"Parents are successfully retrieved",HttpStatus.ACCEPTED.value(),parentService.findAll()));
+    }
+
+    @GetMapping("/address/{id}")
+    public ResponseEntity<ResponseWrapper> getAddressById(@PathVariable Long id) throws Exception {
+
+        AddressDTO dto= addressService.findById(id);
+            return ResponseEntity.ok(new ResponseWrapper("Address of "+id+"is successfully retrieved",dto));
+
     }
 }
