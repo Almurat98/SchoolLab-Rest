@@ -53,7 +53,7 @@ public class SchoolController {
 
     }
 
-    @PutMapping("/address/{id}")
+    @PutMapping("/address")
     public ResponseEntity<ResponseWrapper> updateAddress(@RequestBody AddressDTO addressDTO) throws Exception {
         addressService.update(addressDTO);
         return  ResponseEntity.ok(new ResponseWrapper("Address is successfully updated",HttpStatus.OK));
