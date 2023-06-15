@@ -26,6 +26,7 @@ public class AddressDTO {
     private String state;
     private String city;
     private String postalCode;
+    private String flag;
 
     private AddressType addressType;
 
